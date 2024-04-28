@@ -1,6 +1,7 @@
 package com.ashish.msscssm.services;
 
 import com.ashish.msscssm.domain.Payment;
+import com.ashish.msscssm.domain.PaymentState;
 import com.ashish.msscssm.repository.PaymentRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,11 @@ class PaymentServiceImplTest {
         Payment preAuth = paymentRepository.getReferenceById(newPayment.getId());
 
         System.out.println(preAuth.getState());
+
+        if(preAuth.getState().equals(PaymentState.PRE_AUTH)){
+            paymentService.authorizePayment(preAuth.getId());
+            System.out.println(preAuth.getState());
+        }
 
     }
 }
